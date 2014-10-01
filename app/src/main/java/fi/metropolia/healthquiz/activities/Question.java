@@ -1,24 +1,24 @@
-package fi.metropolia.healthquiz;
+package fi.metropolia.healthquiz.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import fi.metropolia.healthquiz.R;
 
-
-public class Intro extends Activity {
+public class Question extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro);
+        setContentView(R.layout.activity_question);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.intro, menu);
+        getMenuInflater().inflate(R.menu.question, menu);
         return true;
     }
 
