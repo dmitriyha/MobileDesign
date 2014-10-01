@@ -1,4 +1,4 @@
-package fragments;
+package fi.metropolia.healthquiz.fragments;
 
 import android.app.Activity;
 import android.net.Uri;
