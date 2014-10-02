@@ -9,8 +9,73 @@
     tools:context="fi.metropolia.healthquiz.activities.Question">
 
     <TextView
-        android:text="@string/hello_world"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Points "
+        android:id="@+id/pointsText"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_marginTop="0dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="500"
+        android:id="@+id/points"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_toRightOf="@+id/pointsText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="This is an example question. Use buttons below to answer"
+        android:id="@+id/question"
+        android:layout_below="@+id/points"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Answer 1"
+        android:id="@+id/answer1"
+        android:layout_below="@+id/question"
+        android:width="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Answer 2"
+        android:id="@+id/answer2"
+        android:width="200dp"
+        android:layout_below="@+id/answer1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Answer 3"
+        android:id="@+id/answer3"
+        android:layout_below="@+id/answer2"
+        android:width="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Answer 4"
+        android:id="@+id/answer4"
+        android:width="200dp"
+        android:layout_below="@+id/answer3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
 </RelativeLayout>
