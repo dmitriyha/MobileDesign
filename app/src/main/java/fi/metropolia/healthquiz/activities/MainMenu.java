@@ -5,7 +5,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import fi.metropolia.healthquiz.R;
+import fi.metropolia.healthquiz.classes.AnswerDataSource;
+import fi.metropolia.healthquiz.classes.AnswerObject;
+import fi.metropolia.healthquiz.classes.QuestionDataSource;
+import fi.metropolia.healthquiz.classes.QuestionGroupDataSource;
+import fi.metropolia.healthquiz.classes.QuestionGroupObject;
+import fi.metropolia.healthquiz.classes.QuestionObject;
 
 
 public class MainMenu extends Activity {
@@ -14,6 +24,39 @@ public class MainMenu extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainmenu);
+
+        QuestionGroupDataSource group = new QuestionGroupDataSource(this);
+        try {
+            group.open();
+
+            List<QuestionGroupObject> groupList=group.getAllData();
+            QuestionGroupObject groupObject=groupList.get(0);
+            System.out.println(groupObject.getName());
+
+            group.close();
+
+            QuestionDataSource question= new QuestionDataSource(this);
+            question.open();
+
+            List<QuestionObject> questionList= question.getQuestionByGroup(groupObject.getID());
+            QuestionObject questionObject=questionList.get(0);
+            System.out.println(questionObject.getQuestion());
+
+            question.close();
+
+            AnswerDataSource answer=new AnswerDataSource(this);
+            answer.open();
+
+            List<AnswerObject> answerList=answer.getAnswersByQuestion(questionObject.getID());
+            AnswerObject answerObject=answerList.get(0);
+            System.out.println(answerObject.getAnswer());
+            answer.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
