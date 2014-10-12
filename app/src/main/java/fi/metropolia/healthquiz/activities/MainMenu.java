@@ -1,19 +1,34 @@
 package fi.metropolia.healthquiz.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import fi.metropolia.healthquiz.R;
 
 
 public class MainMenu extends Activity {
 
+    private boolean continueGameAvailable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainmenu);
+
+
+        // TODO Add the saved instance state shiat
+        if (savedInstanceState.containsKey("continue")) {
+            Button continueGameButton = (Button) findViewById(R.id.continue_game_buttton);
+            continueGameButton.setVisibility(View.VISIBLE);
+            continueGameAvailable = true;
+        } else {
+            continueGameAvailable = false;
+        }
     }
 
 
@@ -35,4 +50,19 @@ public class MainMenu extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void gameSelectionButtonClick(View view) {
+        Intent intent = new Intent(MainMenu.this, QuestionGroupSelection.class);
+
+        if (continueGameAvailable && (view.getId() == R.id.continue_game_buttton)) {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("continue", true);
+            intent.putExtras(bundle);
+        }
+
+        startActivity(intent);
+    }
 }
+
+
+

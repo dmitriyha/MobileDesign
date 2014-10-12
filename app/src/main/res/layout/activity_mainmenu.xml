@@ -38,25 +38,22 @@
                 android:orientation="vertical">
 
                 <Button
+                    android:id="@+id/continue_game_buttton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:text="Jatka peliä" />
+                    android:onClick="gameSelectionButtonClick"
+                    android:text="Jatka peliä"
+                    android:visibility="gone" />
 
                 <Button
+                    android:id="@+id/start_new_game_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="gameSelectionButtonClick"
                     android:text="Aloita uusi peli" />
 
-
             </LinearLayout>
-
-
         </LinearLayout>
-
-
     </LinearLayout>
-
-
 </LinearLayout>
