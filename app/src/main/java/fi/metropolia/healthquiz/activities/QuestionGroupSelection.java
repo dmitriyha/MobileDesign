@@ -3,12 +3,14 @@ package fi.metropolia.healthquiz.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import fi.metropolia.healthquiz.R;
@@ -16,6 +18,8 @@ import fi.metropolia.healthquiz.model.QuestionGroupDataSource;
 import fi.metropolia.healthquiz.model.QuestionGroupObject;
 
 public class QuestionGroupSelection extends Activity {
+
+    private static String TAG = QuestionGroupSelection.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,14 @@ public class QuestionGroupSelection extends Activity {
 
         // Get all groups
         QuestionGroupDataSource questionGroupDataSource = new QuestionGroupDataSource(this);
+
+        try {
+            questionGroupDataSource.open();
+        } catch (SQLException e) {
+            Log.i(TAG, e.getMessage().toString());
+            e.printStackTrace();
+        }
+
         List<QuestionGroupObject> questionGroupObjectList = questionGroupDataSource.getAllData();
 
         LinearLayout buttonContainer = (LinearLayout) findViewById(R.id.questions_group_selection_buttons);
@@ -78,5 +90,7 @@ public class QuestionGroupSelection extends Activity {
 
             buttonContainer.addView(button, lp);
         }
+
+        questionGroupDataSource.close();
     }
 }
