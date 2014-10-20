@@ -1,10 +1,19 @@
 package fi.metropolia.healthquiz.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+
+import java.util.List;
+
 import fi.metropolia.healthquiz.R;
+import fi.metropolia.healthquiz.model.QuestionGroupDataSource;
+import fi.metropolia.healthquiz.model.QuestionGroupObject;
 
 public class QuestionGroupSelection extends Activity {
 
@@ -12,6 +21,8 @@ public class QuestionGroupSelection extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_group_selection);
+
+        generateGroupSelectionButtons();
     }
 
 
@@ -32,5 +43,40 @@ public class QuestionGroupSelection extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void generateGroupSelectionButtons() {
+        Button button;
+
+        // Get all groups
+        QuestionGroupDataSource questionGroupDataSource = new QuestionGroupDataSource(this);
+        List<QuestionGroupObject> questionGroupObjectList = questionGroupDataSource.getAllData();
+
+        LinearLayout buttonContainer = (LinearLayout) findViewById(R.id.questions_group_selection_buttons);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        for (final QuestionGroupObject groupObject : questionGroupObjectList) {
+            button = new Button(this);
+            button.setText(groupObject.getName());
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // Change the Activity to the question Activity if the user selects a group
+                    Intent intent = new Intent(QuestionGroupSelection.this, Question.class);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("selected_question_group", groupObject.getID());
+                    intent.putExtras(bundle);
+
+                    startActivity(intent);
+                }
+            });
+
+            buttonContainer.addView(button, lp);
+        }
     }
 }

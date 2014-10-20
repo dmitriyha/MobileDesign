@@ -9,20 +9,20 @@ import java.util.List;
 /**
  * Created by Dima on 10/9/2014.
  */
-public class AnswerDataSource extends DataSource{
+public class AnswerDataSource extends DataSource {
 
-    private String[] allColumns = {"ID","QuestionID","Answer","Correct"};
+    private String[] allColumns = {"ID", "QuestionID", "Answer", "Correct"};
 
-    public AnswerDataSource(Context context){
+    public AnswerDataSource(Context context) {
         super(context);
     }
 
     @Override
     public AnswerObject getSingleObject(long row) {
-        Cursor cursor=database.query(DatabaseAccessor.ANSWER, allColumns, null, null, null, null, null);
-        cursor.move((int)row);
+        Cursor cursor = database.query(DatabaseAccessor.ANSWER, allColumns, null, null, null, null, null);
+        cursor.move((int) row);
 
-        AnswerObject answer=new AnswerObject();
+        AnswerObject answer = new AnswerObject();
         answer.setID(cursor.getLong(0));
         answer.setQuestionId(cursor.getLong(1));
         answer.setAnswer(cursor.getString(2));
@@ -31,13 +31,13 @@ public class AnswerDataSource extends DataSource{
         return answer;
     }
 
-    public List<AnswerObject> getAnswersByQuestion(long questionId){
-        String queryArgs[]={String.valueOf(questionId)};
-        Cursor cursor=database.rawQuery("select * from "+DatabaseAccessor.ANSWER+" where QuestionId= ?;",queryArgs);
+    public List<AnswerObject> getAnswersByQuestion(long questionId) {
+        String queryArgs[] = {String.valueOf(questionId)};
+        Cursor cursor = database.rawQuery("select * from " + DatabaseAccessor.ANSWER + " where QuestionId= ?;", queryArgs);
         cursor.moveToFirst();
         List<AnswerObject> questionList = new ArrayList<AnswerObject>();
-        while(!cursor.isAfterLast()){
-            AnswerObject answer=new AnswerObject();
+        while (!cursor.isAfterLast()) {
+            AnswerObject answer = new AnswerObject();
             answer.setID(cursor.getLong(0));
             answer.setQuestionId(cursor.getLong(1));
             answer.setAnswer(cursor.getString(2));
@@ -49,12 +49,12 @@ public class AnswerDataSource extends DataSource{
         return questionList;
     }
 
-    public List<AnswerObject> getAllData(){
-        Cursor cursor=database.query(DatabaseAccessor.ANSWER, allColumns, null, null, null, null, null);
+    public List<AnswerObject> getAllData() {
+        Cursor cursor = database.query(DatabaseAccessor.ANSWER, allColumns, null, null, null, null, null);
         cursor.moveToFirst();
         List<AnswerObject> questionList = new ArrayList<AnswerObject>();
-        while(!cursor.isAfterLast()){
-            AnswerObject answer=new AnswerObject();
+        while (!cursor.isAfterLast()) {
+            AnswerObject answer = new AnswerObject();
             answer.setID(cursor.getLong(0));
             answer.setQuestionId(cursor.getLong(1));
             answer.setAnswer(cursor.getString(2));

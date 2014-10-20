@@ -13,17 +13,17 @@ public abstract class DataSource {
     protected SQLiteDatabase database;
     protected DatabaseAccessor db;
 
-    public DataSource (Context context){
-        db= new DatabaseAccessor(context);
+    public DataSource(Context context) {
+        db = new DatabaseAccessor(context);
     }
 
     public abstract DatabaseObject getSingleObject(long row);
 
     public void open() throws SQLException {
-        database=db.getReadableDatabase();
+        database = db.getReadableDatabase();
     }
 
-    public void close(){
+    public void close() {
         db.close();
     }
 
