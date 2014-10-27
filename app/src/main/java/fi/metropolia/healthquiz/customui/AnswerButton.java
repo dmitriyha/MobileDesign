@@ -3,7 +3,6 @@ package fi.metropolia.healthquiz.customui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Button;
-import android.widget.ToggleButton;
 
 import fi.metropolia.healthquiz.model.AnswerObject;
 
@@ -36,6 +35,10 @@ public class AnswerButton extends Button {
     private void setupButton() {
 
         this.setText(answer.getAnswer());
+    }
+
+    public AnswerObject getAnswer() {
+        return answer;
     }
 
 }

@@ -1,10 +1,9 @@
 package fi.metropolia.healthquiz.activities;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,7 +18,7 @@ import fi.metropolia.healthquiz.model.AnswerObject;
 import fi.metropolia.healthquiz.model.QuestionDataSource;
 import fi.metropolia.healthquiz.model.QuestionObject;
 
-public class Question extends Activity {
+public class Question extends Activity implements View.OnClickListener {
 
     private static String TAG = QuestionGroupSelection.class.getCanonicalName();
     TextView questionTextView;
@@ -81,15 +80,42 @@ public class Question extends Activity {
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
+        answerButtonContainer.removeAllViews();
+
         for (AnswerObject answer : answers) {
 
             //Button button = new Button(this);
             //answerButtonContainer.addView(button);
 
+            AnswerButton answerButton = new AnswerButton(this, answer, null);
+            answerButton.setOnClickListener(this);
 
-              answerButtonContainer.addView(new AnswerButton(this, answer,null), lp);
+            answerButtonContainer.addView(answerButton, lp);
+
 
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        AnswerButton answerButton = (AnswerButton) view;
+
+        if (answerButton != null) {
+            if (answerButton.getAnswer().isCorrect()) {
+
+                points += 100;
+                updatePoints();
+
+                // TODO check if there is more questions remaining
+
+                setupNewQuestion();
+
+            } else {
+                // TODO minus one life point
+            }
+        }
+
     }
 
     private void updatePoints() {
