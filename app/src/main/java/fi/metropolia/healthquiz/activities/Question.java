@@ -118,7 +118,6 @@ public class Question extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-
         AnswerButton answerButton = (AnswerButton) view;
 
         if (answerButton != null) {

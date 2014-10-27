@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel ns="http://schemas.android.com?import=com.android.navigation.*">
+    <locations class="java.util.ArrayList">
+        <entry>
+            <key class="com.android.navigation.ActivityState"
+                className="fi.metropolia.healthquiz.activities.Question">
+                <location id="point0" x="0" y="0" />
+            </key>
+            <value class="com.android.navigation.Point" x="500" y="100" />
+        </entry>
+        <entry>
+            <key class="com.android.navigation.MenuState" xmlResourceName="score">
+                <location idref="point0" />
+            </key>
+            <value class="com.android.navigation.Point" x="1768" y="2860" />
+        </entry>
+        <entry>
+            <key class="com.android.navigation.ActivityState"
+                className="fi.metropolia.healthquiz.activities.QuestionGroupSelection">
+                <location idref="point0" />
+            </key>
+            <value class="com.android.navigation.Point" x="500" y="1480" />
+        </entry>
+        <entry>
+            <key class="com.android.navigation.ActivityState"
+                className="fi.metropolia.healthquiz.activities.Score">
+                <location idref="point0" />
+            </key>
+            <value class="com.android.navigation.Point" x="480" y="2880" />
+        </entry>
+        <entry>
+            <key class="com.android.navigation.MenuState" xmlResourceName="intro">
+                <location idref="point0" />
+            </key>
+            <value class="com.android.navigation.Point" x="1768" y="4240" />
+        </entry>
+        <entry>
+            <key class="com.android.navigation.ActivityState"
+                className="fi.metropolia.healthquiz.activities.MainMenu">
+                <location idref="point0" />
+            </key>
+            <value class="com.android.navigation.Point" x="500" y="4240" />
+        </entry>
+        <entry>
+            <key class="com.android.navigation.MenuState"
+                xmlResourceName="question_group_selection">
+                <location idref="point0" />
+            </key>
+            <value class="com.android.navigation.Point" x="1768" y="1480" />
+        </entry>
+    </locations>
+</navigationModel>
