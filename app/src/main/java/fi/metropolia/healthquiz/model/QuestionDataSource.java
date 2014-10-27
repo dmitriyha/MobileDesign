@@ -49,7 +49,7 @@ public class QuestionDataSource extends DataSource {
 
     public List<QuestionObject> getQuestionByGroup(long questionGroupId) {
         String queryArgs[] = {String.valueOf(questionGroupId)};
-        Cursor cursor = database.rawQuery("select * from " + DatabaseAccessor.QUESTION + " where QuestionGroupId= ?;", queryArgs);
+        Cursor cursor = database.rawQuery("select * from " + DatabaseAccessor.QUESTION + " where QuestionGroupId= ? and Answered = 0;", queryArgs);
         cursor.moveToFirst();
         List<QuestionObject> questionList = new ArrayList<QuestionObject>();
         while (!cursor.isAfterLast()) {

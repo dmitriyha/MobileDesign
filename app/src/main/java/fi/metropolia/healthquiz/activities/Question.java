@@ -22,7 +22,11 @@ import fi.metropolia.healthquiz.model.QuestionObject;
 
 public class Question extends Activity implements View.OnClickListener {
 
+
+    private static int MAX_LIVES = 5;
     private static String TAG = QuestionGroupSelection.class.getCanonicalName();
+
+
     TextView questionTextView;
     LinearLayout answerButtonContainer;
     TextView pointsTextView;
@@ -81,12 +85,10 @@ public class Question extends Activity implements View.OnClickListener {
             questionGroupID = getIntent().getExtras().getLong("questionGroupID");
             setupNewRandomQuestion();
             points = 0L;
-            lives = 5;
+            lives = MAX_LIVES;
         }
 
         updatePoints();
-
-
     }
 
 
@@ -142,20 +144,25 @@ public class Question extends Activity implements View.OnClickListener {
                 points += 100;
                 updatePoints();
 
-                // TODO check if there is more questions remaining
-
-                setupNewRandomQuestion();
-
             } else {
                 lives--;
 
                 // If out of lives then change to end screen
                 if (lives <= 0) {
-                    switchToScoreScreen();
+                    switchToScoreScreen(FinalGameState.NO_LIVES_LEFT);
                 }
             }
-        }
 
+            questionDataSource.updateQuestion(currentQuestionID);
+
+            Log.d(TAG, "Unanswered questions remaining: " + questionDataSource.getQuestionByGroup(questionGroupID).size());
+
+            if (questionDataSource.getQuestionByGroup(questionGroupID).isEmpty()) {
+                switchToScoreScreen(FinalGameState.ALL_QUESTIONS_ANSWERED);
+            } else {
+                setupNewRandomQuestion();
+            }
+        }
     }
 
     private void updatePoints() {
@@ -173,12 +180,13 @@ public class Question extends Activity implements View.OnClickListener {
         outState.putInt("lives", lives);
     }
 
-    private void switchToScoreScreen() {
+    private void switchToScoreScreen(FinalGameState state) {
         Intent intent = new Intent(Question.this, Score.class);
 
         Bundle bundle = new Bundle();
         bundle.putLong("points", points);
         bundle.putLong("questionGroupID", questionGroupID);
+        bundle.putSerializable("state", state);
         intent.putExtras(bundle);
 
         startActivity(intent);

@@ -16,8 +16,6 @@ public class Score extends Activity {
 
     private static String TAG = Score.class.getCanonicalName();
 
-    TextView scoreTextView;
-
     private long questionGroupID;
 
     @Override
@@ -25,8 +23,21 @@ public class Score extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
-        scoreTextView = (TextView) findViewById(R.id.points);
+        TextView scoreTextView = (TextView) findViewById(R.id.points);
         scoreTextView.setText(Long.toString(getIntent().getExtras().getLong("points")));
+
+        TextView stateTextView = (TextView) findViewById(R.id.stateTextView);
+        FinalGameState state = (FinalGameState) getIntent().getExtras().getSerializable("state");
+
+        switch (state) {
+            case ALL_QUESTIONS_ANSWERED:
+                stateTextView.setText(getResources().getString(R.string.score_all_questions_answered));
+                break;
+
+            case NO_LIVES_LEFT:
+                stateTextView.setText(getResources().getString(R.string.score_no_lives_left));
+                break;
+        }
 
         questionGroupID = getIntent().getExtras().getLong("questionGroupID");
     }
