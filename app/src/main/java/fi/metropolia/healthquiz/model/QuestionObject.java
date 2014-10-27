@@ -1,5 +1,9 @@
 package fi.metropolia.healthquiz.model;
 
+import android.content.Context;
+
+import java.sql.SQLException;
+
 /**
  * Created by Dima on 10/9/2014.
  */
@@ -31,6 +35,17 @@ public class QuestionObject extends DatabaseObject {
     }
 
     public boolean isAnswered(){ return answered; }
+
+    public void updateDB(Context context){
+        QuestionDataSource question=new QuestionDataSource(context);
+        try {
+            question.open();
+            question.updateQuestion(ID);
+            question.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void setHasPictures(int hasPicture) {
         if (hasPicture == 1) {
