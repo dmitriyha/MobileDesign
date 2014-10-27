@@ -41,14 +41,11 @@
             android:id="@+id/answerButtonContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/linearLayout"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/question"
-            android:gravity="center_horizontal"
+        android:gravity="center_horizontal"
             android:orientation="vertical">
 
-        </LinearLayout>
+
+    </LinearLayout>
     </ScrollView>
 
 

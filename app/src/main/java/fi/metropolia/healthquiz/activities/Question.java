@@ -1,8 +1,10 @@
 package fi.metropolia.healthquiz.activities;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -77,11 +79,15 @@ public class Question extends Activity {
 
         List<AnswerObject> answers = answerDataSource.getAnswersByQuestion(question.getID());
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         for (AnswerObject answer : answers) {
 
-            answerButtonContainer.addView(new AnswerButton(this, answer, null, R.style.answer_button), lp);
+            //Button button = new Button(this);
+            //answerButtonContainer.addView(button);
+
+
+              answerButtonContainer.addView(new AnswerButton(this, answer,null), lp);
 
         }
     }

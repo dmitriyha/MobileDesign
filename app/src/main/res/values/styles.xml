@@ -22,13 +22,11 @@
     <style name="group_selection_button"></style>
 
 
-    <style name="answer_button">
+    <style name="answer_button" parent="android:Widget.Button">
         <item name="android:background">@drawable/question_button</item>
         <item name="android:width">200dp</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_marginTop">20dp</item>
-
-
     </style>
 
 </resources>
