@@ -21,7 +21,7 @@ public class DatabaseAccessor extends SQLiteOpenHelper {
             "`QuestionGroupID` INTEGER NOT NULL," +
             "`HasPicture` INTEGER NOT NULL DEFAULT '0'," +
             "`Question` INTEGER NOT NULL" +
-            ");";
+            "`Answered` INTEGER NOT NULL DEFAULT '0');";
     public static final String ANSWER = "Answer";
     private static final String ANSWER_CREATION = "CREATE TABLE `" + ANSWER + "` (" +
             "`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
@@ -29,7 +29,7 @@ public class DatabaseAccessor extends SQLiteOpenHelper {
             "`Answer` TEXT NOT NULL," +
             "`Correct` INTEGER NOT NULL DEFAULT '0'" +
             ");";
-    private static final int DATABASE_VERSION = 7; //when adding stuff to the database, increment the version
+    private static final int DATABASE_VERSION = 8; //when adding stuff to the database, increment the version
     private static final String DATABASE_NAME = "HealthQuiz";
 
 
