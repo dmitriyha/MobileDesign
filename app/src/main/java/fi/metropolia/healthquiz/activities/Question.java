@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -36,18 +37,6 @@ public class Question extends Activity implements View.OnClickListener {
 
         questionGroup = getIntent().getExtras().getLong("selected_question_group");
 
-        if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey("points")) {
-                points = savedInstanceState.getLong("points");
-            }
-        } else {
-            points = 0;
-        }
-
-        questionTextView = (TextView) findViewById(R.id.question);
-        answerButtonContainer = (LinearLayout) findViewById(R.id.answerButtonContainer);
-        pointsTextView = (TextView) findViewById(R.id.points);
-
         questionDataSource = new QuestionDataSource(this);
         answerDataSource = new AnswerDataSource(this);
 
@@ -59,20 +48,54 @@ public class Question extends Activity implements View.OnClickListener {
             e.printStackTrace();
         }
 
+        // Find views
+        questionTextView = (TextView) findViewById(R.id.question);
+        answerButtonContainer = (LinearLayout) findViewById(R.id.answerButtonContainer);
+        pointsTextView = (TextView) findViewById(R.id.points);
+
+        if (savedInstanceState != null) {
+
+            // Restore points
+            if (savedInstanceState.containsKey("points")) {
+                points = savedInstanceState.getLong("points");
+            }
+
+            // Restore question
+            if (savedInstanceState.containsKey("questionID")) {
+                setupKnownQuestion(savedInstanceState.getLong("questionID"));
+            }
+
+        } else {
+            setupNewRandomQuestion();
+            points = 0L;
+        }
+
         updatePoints();
-        setupNewQuestion();
 
 
     }
 
 
-    private void setupNewQuestion() {
+    private void setupNewRandomQuestion() {
 
         List<QuestionObject> questionGroupObjectList = questionDataSource.getQuestionByGroup(questionGroup);
 
         Random random = new Random();
 
         QuestionObject question = questionGroupObjectList.get(random.nextInt(questionGroupObjectList.size()));
+
+        setupQuestion(question);
+
+    }
+
+    private void setupKnownQuestion(long questionID) {
+        QuestionObject question = questionDataSource.getSingleObject(questionID);
+
+        setupQuestion(question);
+    }
+
+
+    private void setupQuestion(QuestionObject question) {
 
         questionTextView.setText(question.getQuestion());
 
@@ -82,17 +105,14 @@ public class Question extends Activity implements View.OnClickListener {
 
         answerButtonContainer.removeAllViews();
 
-        for (AnswerObject answer : answers) {
+        Collections.shuffle(answers, new Random());
 
-            //Button button = new Button(this);
-            //answerButtonContainer.addView(button);
+        for (AnswerObject answer : answers) {
 
             AnswerButton answerButton = new AnswerButton(this, answer, null);
             answerButton.setOnClickListener(this);
 
             answerButtonContainer.addView(answerButton, lp);
-
-
         }
     }
 
@@ -109,7 +129,7 @@ public class Question extends Activity implements View.OnClickListener {
 
                 // TODO check if there is more questions remaining
 
-                setupNewQuestion();
+                setupNewRandomQuestion();
 
             } else {
                 // TODO minus one life point
