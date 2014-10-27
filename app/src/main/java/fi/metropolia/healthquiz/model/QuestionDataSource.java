@@ -32,6 +32,21 @@ public class QuestionDataSource extends DataSource {
         return question;
     }
 
+    public QuestionObject getQuestionByID(long id) {
+
+        String queryArgs[] = {String.valueOf(id)};
+        Cursor cursor = database.rawQuery("select * from " + DatabaseAccessor.QUESTION + " where Id= ?;", queryArgs);
+        cursor.moveToFirst();
+
+        QuestionObject question = new QuestionObject();
+        question.setID(cursor.getLong(0));
+        question.setQuestionGroupId(cursor.getLong(1));
+        question.setHasPictures(cursor.getInt(2));
+        question.setQuestion(cursor.getString(3));
+
+        return question;
+    }
+
     public List<QuestionObject> getQuestionByGroup(long questionGroupId) {
         String queryArgs[] = {String.valueOf(questionGroupId)};
         Cursor cursor = database.rawQuery("select * from " + DatabaseAccessor.QUESTION + " where QuestionGroupId= ?;", queryArgs);

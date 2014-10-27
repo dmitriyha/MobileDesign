@@ -20,7 +20,7 @@ public class DatabaseAccessor extends SQLiteOpenHelper {
             "`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
             "`QuestionGroupID` INTEGER NOT NULL," +
             "`HasPicture` INTEGER NOT NULL DEFAULT '0'," +
-            "`Question` INTEGER NOT NULL" +
+            "`Question` INTEGER NOT NULL, " +
             "`Answered` INTEGER NOT NULL DEFAULT '0');";
     public static final String ANSWER = "Answer";
     private static final String ANSWER_CREATION = "CREATE TABLE `" + ANSWER + "` (" +
@@ -29,7 +29,7 @@ public class DatabaseAccessor extends SQLiteOpenHelper {
             "`Answer` TEXT NOT NULL," +
             "`Correct` INTEGER NOT NULL DEFAULT '0'" +
             ");";
-    private static final int DATABASE_VERSION = 8; //when adding stuff to the database, increment the version
+    private static final int DATABASE_VERSION = 9; //when adding stuff to the database, increment the version
     private static final String DATABASE_NAME = "HealthQuiz";
 
 
@@ -161,38 +161,38 @@ public class DatabaseAccessor extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO `" + ANSWER + "` VALUES(116,31,'A couple of times won''t make a difference',0);");
         db.execSQL("INSERT INTO `" + ANSWER + "` VALUES(117,31,'It depens on your sex',0);");
         db.execSQL("INSERT INTO `" + ANSWER + "` VALUES(118,31,'Cigarettes are a substance which doesn''t cause addiction',0);");
-        
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(1,1,0,'Mitä limut ja energiajuomat aiheuttavat hampaille?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(2,1,0,'Milloin ksylitol-tuotteita tulisi käyttää?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(3,1,0,'Miten unihäiriöt vaikuttavat minun jokapäiväiseen elämääni? ');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(4,1,0,'Riittävä unen määrä minun ikäiselleni nuorelle on…');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(5,1,0,'Pystyn itse vaikuttamaan oman uneni laatuun ja päiväaikaiseen väsymykseen positiivisesti erityisesti seuraavin keinoin ');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(6,1,0,'Kuinka suuri osa suomalaisista nuorista tulee säännöllisesti kiusatuksi?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(7,1,0,'Mikä on nuorten yleisin mielenterveyden häiriö?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(8,1,0,'Miten viiltelyyn tulee suhtautua?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(9,1,0,'Mikä on päivän tärkein ateria?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(10,1,0,'Montako kertaa päivän aikana tulisi syödä?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(11,1,0,'Kuinka paljon päivässä tulisi syödä hedelmiä ja vihanneksia?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(12,1,0,'Mikä on yleisin nuorten käyttämä päihde?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(13,1,0,'Jos käytän alkoholia, miten se vaikuttaa minun koulunkäyntiini?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(14,1,0,'Olen kokeillut tupakkaa muutaman kerran. Nyt mietin voinko jäädä koukkuun tupakkaan?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(15,1,0,'Liikutko kouluikäisten fyysisen aktiivisuuden suositusten mukaisesti, vähintään 1–1½  tuntia päivässä?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(16,1,0,'Kuinka paljon vietät aikaa viihdemedian ääressä (mm. TV, tietokone, pelit, tabletit)?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(17,1,0,'Mitä teet useimmiten koulussa välitunnilla?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(18,2,0,'What do fizzy drinks and energy drinks cause to teeth?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(19,2,0,'When should you use xylitol products?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(20,2,0,'How do sleep problems affect my everyday life?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(21,2,0,'A sufficient amount of sleep for a young person my ages is…');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(22,2,0,'I can affect the quality of my sleep and daytime tiredness by doing the following...');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(23,2,0,'What percentage of young people is bullied at school regularly');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(24,2,0,'What is the most common mental health problem for young people?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(25,2,0,'How should I feel about self-harming?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(26,2,0,'What is the most important meal of the day?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(27,2,0,'How many times a day should you eat?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(28,2,0,'How much fruit and vegetables should you eat per day?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(29,2,0,'What is the most common substance used by young people?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(30,2,0,'If I use alcohol, what effect will it have on my school work?');");
-        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(31,2,0,'I''ve tried smoking a couple of times. Now I''m worried I might become addicted.');");
+
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(1,1,0,'Mitä limut ja energiajuomat aiheuttavat hampaille?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(2,1,0,'Milloin ksylitol-tuotteita tulisi käyttää?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(3,1,0,'Miten unihäiriöt vaikuttavat minun jokapäiväiseen elämääni? ',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(4,1,0,'Riittävä unen määrä minun ikäiselleni nuorelle on…',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(5,1,0,'Pystyn itse vaikuttamaan oman uneni laatuun ja päiväaikaiseen väsymykseen positiivisesti erityisesti seuraavin keinoin ',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(6,1,0,'Kuinka suuri osa suomalaisista nuorista tulee säännöllisesti kiusatuksi?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(7,1,0,'Mikä on nuorten yleisin mielenterveyden häiriö?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(8,1,0,'Miten viiltelyyn tulee suhtautua?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(9,1,0,'Mikä on päivän tärkein ateria?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(10,1,0,'Montako kertaa päivän aikana tulisi syödä?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(11,1,0,'Kuinka paljon päivässä tulisi syödä hedelmiä ja vihanneksia?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(12,1,0,'Mikä on yleisin nuorten käyttämä päihde?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(13,1,0,'Jos käytän alkoholia, miten se vaikuttaa minun koulunkäyntiini?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(14,1,0,'Olen kokeillut tupakkaa muutaman kerran. Nyt mietin voinko jäädä koukkuun tupakkaan?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(15,1,0,'Liikutko kouluikäisten fyysisen aktiivisuuden suositusten mukaisesti, vähintään 1–1½  tuntia päivässä?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(16,1,0,'Kuinka paljon vietät aikaa viihdemedian ääressä (mm. TV, tietokone, pelit, tabletit)?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(17,1,0,'Mitä teet useimmiten koulussa välitunnilla?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(18,2,0,'What do fizzy drinks and energy drinks cause to teeth?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(19,2,0,'When should you use xylitol products?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(20,2,0,'How do sleep problems affect my everyday life?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(21,2,0,'A sufficient amount of sleep for a young person my ages is…',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(22,2,0,'I can affect the quality of my sleep and daytime tiredness by doing the following...',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(23,2,0,'What percentage of young people is bullied at school regularly',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(24,2,0,'What is the most common mental health problem for young people?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(25,2,0,'How should I feel about self-harming?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(26,2,0,'What is the most important meal of the day?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(27,2,0,'How many times a day should you eat?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(28,2,0,'How much fruit and vegetables should you eat per day?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(29,2,0,'What is the most common substance used by young people?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(30,2,0,'If I use alcohol, what effect will it have on my school work?',0);");
+        db.execSQL("INSERT INTO `" + QUESTION + "` VALUES(31,2,0,'I''ve tried smoking a couple of times. Now I''m worried I might become addicted.',0);");
         
         db.execSQL("INSERT INTO `" + QUESTION_GROUP + "` VALUES(1,'Suomi');");
         db.execSQL("INSERT INTO `" + QUESTION_GROUP + "` VALUES(2,'English');");

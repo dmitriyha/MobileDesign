@@ -27,15 +27,14 @@ public class Question extends Activity implements View.OnClickListener {
     TextView pointsTextView;
     QuestionDataSource questionDataSource;
     AnswerDataSource answerDataSource;
-    private long questionGroup;
+    private long questionGroupID;
     private long points;
+    private long currentQuestionID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
-
-        questionGroup = getIntent().getExtras().getLong("selected_question_group");
 
         questionDataSource = new QuestionDataSource(this);
         answerDataSource = new AnswerDataSource(this);
@@ -65,7 +64,13 @@ public class Question extends Activity implements View.OnClickListener {
                 setupKnownQuestion(savedInstanceState.getLong("questionID"));
             }
 
+            // Restore question group
+            if (savedInstanceState.containsKey("questionGroupID")) {
+                questionGroupID = savedInstanceState.getLong("questionGroupID");
+            }
+
         } else {
+            questionGroupID = getIntent().getExtras().getLong("selected_question_group");
             setupNewRandomQuestion();
             points = 0L;
         }
@@ -78,7 +83,7 @@ public class Question extends Activity implements View.OnClickListener {
 
     private void setupNewRandomQuestion() {
 
-        List<QuestionObject> questionGroupObjectList = questionDataSource.getQuestionByGroup(questionGroup);
+        List<QuestionObject> questionGroupObjectList = questionDataSource.getQuestionByGroup(questionGroupID);
 
         Random random = new Random();
 
@@ -89,13 +94,15 @@ public class Question extends Activity implements View.OnClickListener {
     }
 
     private void setupKnownQuestion(long questionID) {
-        QuestionObject question = questionDataSource.getSingleObject(questionID);
+        QuestionObject question = questionDataSource.getQuestionByID(questionID);
 
         setupQuestion(question);
     }
 
 
     private void setupQuestion(QuestionObject question) {
+
+        currentQuestionID = question.getID();
 
         questionTextView.setText(question.getQuestion());
 
@@ -141,5 +148,14 @@ public class Question extends Activity implements View.OnClickListener {
         pointsTextView.setText(Long.toString(points));
     }
 
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putLong("points", points);
+        outState.putLong("questionID", currentQuestionID);
+        outState.putLong("questionGroupID", questionGroupID);
+    }
 
 }
