@@ -27,6 +27,7 @@ public class QuestionDataSource extends DataSource {
         question.setQuestionGroupId(cursor.getLong(1));
         question.setHasPictures(cursor.getInt(2));
         question.setQuestion(cursor.getString(3));
+        question.setAnswered(cursor.getInt(4));
 
         return question;
     }
@@ -59,6 +60,7 @@ public class QuestionDataSource extends DataSource {
             question.setQuestionGroupId(cursor.getLong(1));
             question.setHasPictures(cursor.getInt(2));
             question.setQuestion(cursor.getString(3));
+            question.setAnswered(cursor.getInt(4));
 
             questionList.add(question);
             cursor.moveToNext();
