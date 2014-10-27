@@ -81,7 +81,7 @@ public class QuestionGroupSelection extends Activity {
                     Intent intent = new Intent(QuestionGroupSelection.this, Question.class);
 
                     Bundle bundle = new Bundle();
-                    bundle.putLong("selected_question_group", groupObject.getID());
+                    bundle.putLong("questionGroupID", groupObject.getID());
                     intent.putExtras(bundle);
 
                     startActivity(intent);

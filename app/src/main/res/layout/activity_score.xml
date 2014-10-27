@@ -71,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:onClick="replay"
             android:text="Pelaa uudelleen" />
 
         <Button
@@ -79,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:onClick="returnToMenu"
             android:text="Palaa valikkoon" />
     </LinearLayout>
 </RelativeLayout>

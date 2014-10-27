@@ -83,8 +83,12 @@ public class QuestionDataSource extends DataSource {
         return questionList;
     }
 
-    public void updateQuestion(long id){
-        String attributes[] ={"1"};
-        database.execSQL("UPDATE `"+ DatabaseAccessor.QUESTION+ "` SET Answered = ? WHERE ID = "+id, attributes);
+    public void updateQuestion(long id) {
+        String attributes[] = {"1"};
+        database.execSQL("UPDATE `" + DatabaseAccessor.QUESTION + "` SET Answered = ? WHERE ID = " + id, attributes);
+    }
+
+    public void resetAnsweredQuestions() {
+        database.execSQL("UPDATE `" + DatabaseAccessor.QUESTION + "` SET Answered = 0");
     }
 }

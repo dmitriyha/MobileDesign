@@ -1,6 +1,7 @@
 package fi.metropolia.healthquiz.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,9 +28,11 @@ public class Question extends Activity implements View.OnClickListener {
     TextView pointsTextView;
     QuestionDataSource questionDataSource;
     AnswerDataSource answerDataSource;
+
     private long questionGroupID;
     private long points;
     private long currentQuestionID;
+    private int lives;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +72,16 @@ public class Question extends Activity implements View.OnClickListener {
                 questionGroupID = savedInstanceState.getLong("questionGroupID");
             }
 
+            // Restore lives
+            if (savedInstanceState.containsKey("lives")) {
+                lives = savedInstanceState.getInt("lives");
+            }
+
         } else {
-            questionGroupID = getIntent().getExtras().getLong("selected_question_group");
+            questionGroupID = getIntent().getExtras().getLong("questionGroupID");
             setupNewRandomQuestion();
             points = 0L;
+            lives = 5;
         }
 
         updatePoints();
@@ -138,7 +147,12 @@ public class Question extends Activity implements View.OnClickListener {
                 setupNewRandomQuestion();
 
             } else {
-                // TODO minus one life point
+                lives--;
+
+                // If out of lives then change to end screen
+                if (lives <= 0) {
+                    switchToScoreScreen();
+                }
             }
         }
 
@@ -156,6 +170,18 @@ public class Question extends Activity implements View.OnClickListener {
         outState.putLong("points", points);
         outState.putLong("questionID", currentQuestionID);
         outState.putLong("questionGroupID", questionGroupID);
+        outState.putInt("lives", lives);
+    }
+
+    private void switchToScoreScreen() {
+        Intent intent = new Intent(Question.this, Score.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putLong("points", points);
+        bundle.putLong("questionGroupID", questionGroupID);
+        intent.putExtras(bundle);
+
+        startActivity(intent);
     }
 
 }

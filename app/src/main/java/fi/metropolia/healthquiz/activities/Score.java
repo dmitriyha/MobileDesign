@@ -1,36 +1,60 @@
 package fi.metropolia.healthquiz.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import java.sql.SQLException;
+
 import fi.metropolia.healthquiz.R;
+import fi.metropolia.healthquiz.model.QuestionDataSource;
 
 public class Score extends Activity {
+
+    private static String TAG = Score.class.getCanonicalName();
+
+    TextView scoreTextView;
+
+    private long questionGroupID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
+
+        scoreTextView = (TextView) findViewById(R.id.points);
+        scoreTextView.setText(Long.toString(getIntent().getExtras().getLong("points")));
+
+        questionGroupID = getIntent().getExtras().getLong("questionGroupID");
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.score, menu);
-        return true;
+    public void returnToMenu(View view) {
+        Intent intent = new Intent(Score.this, MainMenu.class);
+        startActivity(intent);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+    public void replay(View view) {
+        // Change the Activity to the question Activity if the user selects a group
+        Intent intent = new Intent(Score.this, Question.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putLong("questionGroupID", questionGroupID);
+        intent.putExtras(bundle);
+
+        QuestionDataSource questionDataSource = new QuestionDataSource(this);
+
+        try {
+            questionDataSource.open();
+        } catch (SQLException e) {
+            Log.i(TAG, e.getMessage().toString());
+            e.printStackTrace();
         }
-        return super.onOptionsItemSelected(item);
+
+        questionDataSource.resetAnsweredQuestions();
+
+        startActivity(intent);
     }
 }
