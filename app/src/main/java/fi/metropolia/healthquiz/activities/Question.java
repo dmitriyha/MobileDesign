@@ -15,6 +15,7 @@ import java.util.Random;
 
 import fi.metropolia.healthquiz.R;
 import fi.metropolia.healthquiz.customui.AnswerButton;
+import fi.metropolia.healthquiz.customui.HealthBar;
 import fi.metropolia.healthquiz.model.AnswerDataSource;
 import fi.metropolia.healthquiz.model.AnswerObject;
 import fi.metropolia.healthquiz.model.QuestionDataSource;
@@ -30,13 +31,14 @@ public class Question extends Activity implements View.OnClickListener {
     TextView questionTextView;
     LinearLayout answerButtonContainer;
     TextView pointsTextView;
+    HealthBar healthBar;
+
     QuestionDataSource questionDataSource;
     AnswerDataSource answerDataSource;
 
     private long questionGroupID;
     private long points;
     private long currentQuestionID;
-    private int lives;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class Question extends Activity implements View.OnClickListener {
         questionTextView = (TextView) findViewById(R.id.question);
         answerButtonContainer = (LinearLayout) findViewById(R.id.answerButtonContainer);
         pointsTextView = (TextView) findViewById(R.id.points);
+        healthBar = (HealthBar) findViewById(R.id.healthBar);
 
         if (savedInstanceState != null) {
 
@@ -78,14 +81,13 @@ public class Question extends Activity implements View.OnClickListener {
 
             // Restore lives
             if (savedInstanceState.containsKey("lives")) {
-                lives = savedInstanceState.getInt("lives");
+                healthBar.setHealth(savedInstanceState.getInt("lives"));
             }
 
         } else {
             questionGroupID = getIntent().getExtras().getLong("questionGroupID");
             setupNewRandomQuestion();
             points = 0L;
-            lives = MAX_LIVES;
         }
 
         updatePoints();
@@ -145,10 +147,9 @@ public class Question extends Activity implements View.OnClickListener {
                 updatePoints();
 
             } else {
-                lives--;
 
                 // If out of lives then change to end screen
-                if (lives <= 0) {
+                if (!healthBar.lifeLost()) {
                     switchToScoreScreen(FinalGameState.NO_LIVES_LEFT);
                 }
             }
@@ -177,7 +178,7 @@ public class Question extends Activity implements View.OnClickListener {
         outState.putLong("points", points);
         outState.putLong("questionID", currentQuestionID);
         outState.putLong("questionGroupID", questionGroupID);
-        outState.putInt("lives", lives);
+        outState.putInt("lives", healthBar.getHealth());
     }
 
     private void switchToScoreScreen(FinalGameState state) {
