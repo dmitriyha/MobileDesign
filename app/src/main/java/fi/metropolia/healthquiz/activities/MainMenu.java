@@ -20,8 +20,6 @@ public class MainMenu extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainmenu);
 
-        // TODO Add the saved instance state shiat
-
         if (savedInstanceState != null && savedInstanceState.containsKey("continue")) {
             Button continueGameButton = (Button) findViewById(R.id.continue_game_buttton);
             continueGameButton.setVisibility(View.VISIBLE);
