@@ -130,6 +130,7 @@ public class Question extends Activity implements View.OnClickListener {
         for (AnswerObject answer : answers) {
 
             AnswerButton answerButton = new AnswerButton(this, answer, null);
+            answerButton.setBackgroundResource(R.drawable.question_button);
             answerButton.setOnClickListener(this);
 
             answerButtonContainer.addView(answerButton, lp);
