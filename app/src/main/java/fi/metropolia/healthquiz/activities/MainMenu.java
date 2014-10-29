@@ -50,13 +50,20 @@ public class MainMenu extends Activity {
     }
 
     public void gameSelectionButtonClick(View view) {
-        Intent intent = new Intent(MainMenu.this, QuestionGroupSelection.class);
+        Intent intent = new Intent(MainMenu.this, Question.class);
 
+        /*
         if (continueGameAvailable && (view.getId() == R.id.continue_game_buttton)) {
             Bundle bundle = new Bundle();
-            bundle.putBoolean("continue", true);
+            //bundle.putBoolean("continue", true);
+            bundle.putLong("questionGroupID", 1L);
             intent.putExtras(bundle);
         }
+        */
+
+        Bundle bundle = new Bundle();
+        bundle.putLong("questionGroupID", 1L);
+        intent.putExtras(bundle);
 
         startActivity(intent);
     }
