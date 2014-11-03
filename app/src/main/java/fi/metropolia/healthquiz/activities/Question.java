@@ -126,6 +126,7 @@ public class Question extends Activity implements View.OnClickListener {
         List<AnswerObject> answers = answerDataSource.getAnswersByQuestion(question.getID());
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, 0, 0, 30);
 
         answerButtonContainer.removeAllViews();
 
@@ -133,8 +134,9 @@ public class Question extends Activity implements View.OnClickListener {
 
         for (AnswerObject answer : answers) {
 
-            AnswerButton answerButton = new AnswerButton(this, answer, null);
-            answerButton.setBackgroundResource(R.drawable.question_button);
+            AnswerButton answerButton = (AnswerButton) getLayoutInflater().inflate(R.layout.answer_button, null);
+            answerButton.setAnswer(answer);
+            answerButton.setText(answer.getAnswer());
             answerButton.setOnClickListener(this);
 
             answerButtonContainer.addView(answerButton, lp);

@@ -13,32 +13,26 @@ public class AnswerButton extends Button {
 
     private AnswerObject answer;
 
-    public AnswerButton(Context context, AnswerObject answer, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        this.answer = answer;
-        setupButton();
-    }
-
-    public AnswerButton(Context context, AnswerObject answer, AttributeSet attrs) {
-        super(context, attrs);
-        this.answer = answer;
-        setupButton();
-    }
-
-    public AnswerButton(Context context, AnswerObject answer) {
+    public AnswerButton(Context context) {
         super(context);
-        this.answer = answer;
-
-        setupButton();
     }
 
-    private void setupButton() {
-
-        this.setText(answer.getAnswer());
+    public AnswerButton(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
+
+    public AnswerButton(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
 
     public AnswerObject getAnswer() {
         return answer;
+    }
+
+    public void setAnswer(AnswerObject answer) {
+        this.answer = answer;
+        this.setText(answer.getAnswer());
     }
 
 }

@@ -42,18 +42,9 @@ public class Score extends Activity {
         questionGroupID = getIntent().getExtras().getLong("questionGroupID");
     }
 
-    public void returnToMenu(View view) {
-        Intent intent = new Intent(Score.this, MainMenu.class);
-        startActivity(intent);
-    }
-
     public void replay(View view) {
         // Change the Activity to the question Activity if the user selects a group
-        Intent intent = new Intent(Score.this, Question.class);
-
-        Bundle bundle = new Bundle();
-        bundle.putLong("questionGroupID", questionGroupID);
-        intent.putExtras(bundle);
+        Intent intent = new Intent(Score.this, MainMenu.class);
 
         QuestionDataSource questionDataSource = new QuestionDataSource(this);
 
