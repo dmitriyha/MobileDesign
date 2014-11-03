@@ -159,7 +159,7 @@ public class Question extends Activity implements View.OnClickListener {
 
             Log.d(TAG, "Unanswered questions remaining: " + questionDataSource.getQuestionByGroup(questionGroupID).size());
 
-            if (questionDataSource.getQuestionByGroup(questionGroupID).isEmpty()) {
+            if (questionDataSource.getQuestionByGroup(questionGroupID).size() <= 0) {
                 switchToScoreScreen(FinalGameState.ALL_QUESTIONS_ANSWERED);
             } else {
                 setupNewRandomQuestion();
