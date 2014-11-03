@@ -98,6 +98,10 @@ public class Question extends Activity implements View.OnClickListener {
 
         List<QuestionObject> questionGroupObjectList = questionDataSource.getQuestionByGroup(questionGroupID);
 
+        if (questionGroupObjectList.size() == 0) {
+            switchToScoreScreen(FinalGameState.ALL_QUESTIONS_ANSWERED);
+        }
+
         Random random = new Random();
 
         QuestionObject question = questionGroupObjectList.get(random.nextInt(questionGroupObjectList.size()));
