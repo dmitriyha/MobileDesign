@@ -12,91 +12,6 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:id="@+id/resultRelativeLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/bg"
-            android:onClick="OnClickNextQuestion"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
-
-            <RelativeLayout
-                android:id="@+id/wrongAnswer"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="193dp"
-                    android:text="Vastasit väärin!"
-                    android:textSize="32dp" />
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView3"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/minus_hearth" />
-
-                <Button
-                    android:id="@+id/button"
-                    style="@style/answer_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/imageView"
-                    android:layout_centerHorizontal="true"
-                    android:onClick="OnClickNextQuestion"
-                    android:text="Seuraava kysymys" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/correctAnswer"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:visibility="visible">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/textView2"
-                    android:layout_centerHorizontal="true"
-                    android:text="Vastasit oikein!"
-                    android:textSize="32dp" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="+100 Pistettä"
-                    android:textSize="32dp" />
-
-                <Button
-                    android:id="@+id/button2"
-                    style="@style/answer_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView2"
-                    android:layout_centerHorizontal="true"
-                    android:onClick="OnClickNextQuestion"
-                    android:text="Seuraava kysymys" />
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-        <RelativeLayout
             android:id="@+id/questionRelativeLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -196,6 +111,91 @@
 
                 </LinearLayout>
             </ScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/resultRelativeLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/bg"
+            android:onClick="OnClickNextQuestion"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <RelativeLayout
+                android:id="@+id/wrongAnswer"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="193dp"
+                    android:text="Vastasit väärin!"
+                    android:textSize="32dp" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView3"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/minus_hearth" />
+
+                <Button
+                    android:id="@+id/button"
+                    style="@style/answer_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imageView"
+                    android:layout_centerHorizontal="true"
+                    android:onClick="OnClickNextQuestion"
+                    android:text="Seuraava kysymys" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/correctAnswer"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/textView2"
+                    android:layout_centerHorizontal="true"
+                    android:text="Vastasit oikein!"
+                    android:textSize="32dp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="+100 Pistettä"
+                    android:textSize="32dp" />
+
+                <Button
+                    android:id="@+id/button2"
+                    style="@style/answer_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView2"
+                    android:layout_centerHorizontal="true"
+                    android:onClick="OnClickNextQuestion"
+                    android:text="Seuraava kysymys" />
+            </RelativeLayout>
+
         </RelativeLayout>
 
     </ViewFlipper>
