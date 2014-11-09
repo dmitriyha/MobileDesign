@@ -214,16 +214,12 @@ public class Question extends Activity implements View.OnClickListener {
     private void showNext() {
         flipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.in_from_right));
         flipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.out_to_left));
-        flip();
+        flipper.showNext();
     }
 
-    private void showPrevious() {
-        flipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.previous));
-        flipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.next));
-        flip();
-    }
-
-    private void flip() {
+    public void OnClickNextQuestion(View view) {
+        flipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.in_from_right));
+        flipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.out_to_left));
         flipper.showNext();
     }
 
