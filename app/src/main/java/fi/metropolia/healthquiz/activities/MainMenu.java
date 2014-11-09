@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import fi.metropolia.healthquiz.R;
 
@@ -19,14 +18,6 @@ public class MainMenu extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainmenu);
-
-        if (savedInstanceState != null && savedInstanceState.containsKey("continue")) {
-            Button continueGameButton = (Button) findViewById(R.id.continue_game_buttton);
-            continueGameButton.setVisibility(View.VISIBLE);
-            continueGameAvailable = true;
-        } else {
-            continueGameAvailable = false;
-        }
     }
 
 

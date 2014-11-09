@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/main_menu"
     tools:context=".fi.metropolia.healthquiz.activities.MainMenu">
 
 
@@ -39,20 +39,12 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/continue_game_buttton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:onClick="gameSelectionButtonClick"
-                    android:text="Jatka peliä"
-                    android:visibility="gone" />
-
-                <Button
                     android:id="@+id/start_new_game_button"
+                    style="@style/answer_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="gameSelectionButtonClick"
-                    android:text="Aloita uusi peli" />
+                    android:text="Aloita peli" />
 
             </LinearLayout>
         </LinearLayout>

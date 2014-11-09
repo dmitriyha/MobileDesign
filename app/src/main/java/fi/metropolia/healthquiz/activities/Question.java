@@ -36,6 +36,8 @@ public class Question extends Activity implements View.OnClickListener {
     ViewFlipper flipper;
     RelativeLayout questionView;
     RelativeLayout resultView;
+    RelativeLayout wrongAnswerLayout;
+    RelativeLayout correctAnswerLayout;
 
     QuestionDataSource questionDataSource;
     AnswerDataSource answerDataSource;
@@ -69,6 +71,8 @@ public class Question extends Activity implements View.OnClickListener {
         flipper = (ViewFlipper) findViewById(R.id.viewFlipper);
         questionView = (RelativeLayout) findViewById(R.id.questionRelativeLayout);
         resultView = (RelativeLayout) findViewById(R.id.resultRelativeLayout);
+        correctAnswerLayout = (RelativeLayout) findViewById(R.id.correctAnswer);
+        wrongAnswerLayout = (RelativeLayout) findViewById(R.id.wrongAnswer);
 
         if (savedInstanceState != null) {
 
@@ -154,6 +158,7 @@ public class Question extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         AnswerButton answerButton = (AnswerButton) view;
+        boolean switched = false;
 
         if (answerButton != null) {
             if (answerButton.getAnswer().isCorrect()) {
@@ -166,6 +171,7 @@ public class Question extends Activity implements View.OnClickListener {
                 // If out of lives then change to end screen
                 if (!healthBar.lifeLost()) {
                     switchToScoreScreen(FinalGameState.NO_LIVES_LEFT);
+                    switched = true;
                 }
             }
 
@@ -173,12 +179,16 @@ public class Question extends Activity implements View.OnClickListener {
 
             Log.d(TAG, "Unanswered questions remaining: " + questionDataSource.getQuestionByGroup(questionGroupID).size());
 
-            showNext();
-
             if (questionDataSource.getQuestionByGroup(questionGroupID).size() <= 0) {
                 switchToScoreScreen(FinalGameState.ALL_QUESTIONS_ANSWERED);
+                switched = true;
             } else {
                 setupNewRandomQuestion();
+            }
+
+            // Dont show the animation if the activity has been switched (probably not the right way to do this)
+            if (switched == false) {
+                displayResult(answerButton.getAnswer().isCorrect());
             }
         }
     }
@@ -208,6 +218,7 @@ public class Question extends Activity implements View.OnClickListener {
         intent.putExtras(bundle);
 
         startActivity(intent);
+        finish();
     }
 
 
@@ -218,9 +229,13 @@ public class Question extends Activity implements View.OnClickListener {
     }
 
     public void OnClickNextQuestion(View view) {
-        flipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.in_from_right));
-        flipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.out_to_left));
-        flipper.showNext();
+        showNext();
+    }
+
+    private void displayResult(boolean answerIsCorrect) {
+        correctAnswerLayout.setVisibility((answerIsCorrect) ? View.VISIBLE : View.GONE);
+        wrongAnswerLayout.setVisibility((answerIsCorrect) ? View.GONE : View.VISIBLE);
+        showNext();
     }
 
 }
