@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -23,8 +26,6 @@ import fi.metropolia.healthquiz.model.QuestionObject;
 
 public class Question extends Activity implements View.OnClickListener {
 
-
-    private static int MAX_LIVES = 5;
     private static String TAG = QuestionGroupSelection.class.getCanonicalName();
 
 
@@ -32,6 +33,9 @@ public class Question extends Activity implements View.OnClickListener {
     LinearLayout answerButtonContainer;
     TextView pointsTextView;
     HealthBar healthBar;
+    ViewFlipper flipper;
+    RelativeLayout questionView;
+    RelativeLayout resultView;
 
     QuestionDataSource questionDataSource;
     AnswerDataSource answerDataSource;
@@ -39,6 +43,7 @@ public class Question extends Activity implements View.OnClickListener {
     private long questionGroupID;
     private long points;
     private long currentQuestionID;
+    private boolean isFirstVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,9 @@ public class Question extends Activity implements View.OnClickListener {
         answerButtonContainer = (LinearLayout) findViewById(R.id.answerButtonContainer);
         pointsTextView = (TextView) findViewById(R.id.points);
         healthBar = (HealthBar) findViewById(R.id.healthBar);
+        flipper = (ViewFlipper) findViewById(R.id.viewFlipper);
+        questionView = (RelativeLayout) findViewById(R.id.questionRelativeLayout);
+        resultView = (RelativeLayout) findViewById(R.id.resultRelativeLayout);
 
         if (savedInstanceState != null) {
 
@@ -165,6 +173,8 @@ public class Question extends Activity implements View.OnClickListener {
 
             Log.d(TAG, "Unanswered questions remaining: " + questionDataSource.getQuestionByGroup(questionGroupID).size());
 
+            showNext();
+
             if (questionDataSource.getQuestionByGroup(questionGroupID).size() <= 0) {
                 switchToScoreScreen(FinalGameState.ALL_QUESTIONS_ANSWERED);
             } else {
@@ -198,6 +208,23 @@ public class Question extends Activity implements View.OnClickListener {
         intent.putExtras(bundle);
 
         startActivity(intent);
+    }
+
+
+    private void showNext() {
+        flipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.in_from_right));
+        flipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.out_to_left));
+        flip();
+    }
+
+    private void showPrevious() {
+        flipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.previous));
+        flipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.next));
+        flip();
+    }
+
+    private void flip() {
+        flipper.showNext();
     }
 
 }
